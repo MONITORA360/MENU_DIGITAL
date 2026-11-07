@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Menú Digital · MONITORA · Demo Casa Brava</title>
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Playfair+Display:ital,wght@1,600;1,700&display=swap" rel="stylesheet">
+<script>tailwind.config={theme:{extend:{colors:{navy:'#012169',brava:'#CA102E',plata:'#A2A2A2'}}}}</script>
+<style>
+html{scroll-behavior:smooth;scroll-padding-top:6.5rem}
+body{font-family:Lato,system-ui,sans-serif;color:#1e293b;padding-top:3rem;padding-bottom:env(safe-area-inset-bottom)}
+#bg{position:fixed;inset:0;z-index:-1;background:#fff url(fondo.jpg) center/cover no-repeat}
+.ft{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:700;color:#012169;line-height:1.15}
+.pn{background:rgba(255,255,255,.94);border-radius:1.25rem;box-shadow:0 12px 40px rgba(1,33,105,.13)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:700;border-radius:999px;padding:.8rem 1.5rem;transition:.2s;cursor:pointer}
+.btn:active{transform:scale(.97)}
+.b-red{background:#CA102E;color:#fff}.b-red:hover{background:#a50d26}
+.b-navy{background:#012169;color:#fff}.b-navy:hover{background:#01154a}
+.b-out{border:2px solid #012169;color:#012169;background:#fff}
+.pill{font-size:.72rem;font-weight:700;padding:.3rem .65rem;border-radius:999px;border:1.5px solid #A2A2A2;color:#64748b;background:#fff;white-space:nowrap}
+.pill.on{background:#012169;border-color:#012169;color:#fff}
+.in{width:100%;border:1.5px solid #A2A2A2;border-radius:.75rem;padding:.7rem .9rem;background:#fff;font-size:16px}
+.in:focus{outline:3px solid rgba(1,33,105,.25);border-color:#012169}
+:focus-visible{outline:3px solid #CA102E;outline-offset:2px}
+.rule{height:3px;width:64px;background:#CA102E;border-radius:3px}
+.pulse{animation:pl 1.8s infinite}@keyframes pl{0%{box-shadow:0 0 0 0 rgba(202,16,46,.5)}70%{box-shadow:0 0 0 14px rgba(202,16,46,0)}100%{box-shadow:0 0 0 0 rgba(202,16,46,0)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div id="bg"></div>
+
+<!-- Barra superior: ruta de la demo + carrito -->
+<div class="fixed top-0 inset-x-0 z-40 h-12 bg-white/95 backdrop-blur shadow flex items-center justify-between px-3 gap-2" style="padding-top:env(safe-area-inset-top);height:calc(3rem + env(safe-area-inset-top))">
+  <div class="flex gap-1.5 overflow-x-auto"><span class="pill" id="s1">1 Explora</span><span class="pill" id="s2">2 Arma tu pedido</span><span class="pill" id="s3">3 Envíalo a tu WhatsApp</span></div>
+  <a href="#pedido" class="btn b-navy !py-1.5 !px-3 text-sm shrink-0" aria-label="Ver pedido"><i data-lucide="shopping-bag" class="w-4 h-4"></i><span id="cn">0</span><span id="ct" class="hidden sm:inline">$0</span></a>
+</div>
+
+<main class="max-w-6xl mx-auto px-4 py-6 space-y-10">
+
+<!-- MONITORA -->
+<section class="pn p-6 md:p-10 text-center">
+  <p class="text-xs tracking-widest text-plata font-bold">MONITORA · SOLUCIONES DIGITALES</p>
+  <img src="logomenu.jpg" alt="Menú Digital" class="mx-auto my-4 max-h-40 md:max-h-52 object-contain" onerror="this.style.display='none'">
+  <h1 class="ft text-3xl md:text-5xl">Tu restaurante. Tu identidad. Tu canal de pedidos.</h1>
+  <div class="rule mx-auto my-5"></div>
+  <p class="max-w-2xl mx-auto text-lg">Una experiencia gastronómica digital que permite presentar tu restaurante, exhibir tus productos y recibir pedidos directamente por WhatsApp.</p>
+  <p class="font-bold text-brava mt-3">No es solamente una carta digital. Es una herramienta comercial para tu restaurante.</p>
+  <ul id="feat" class="grid grid-cols-2 md:grid-cols-4 gap-3 my-8 text-left text-sm"></ul>
+  <img src="monitora.png" alt="MONITORA" class="mx-auto h-28 md:h-40 object-contain my-4" onerror="this.style.display='none'">
+  <p class="ft text-xl md:text-2xl">Tecnología para transformar experiencias en decisiones de compra.</p>
+  <div class="mt-6 flex flex-wrap gap-3 justify-center">
+    <a class="btn b-red pulse" target="_blank" rel="noopener" href="https://wa.me/573147911387?text=Pide%20tu%20Cotizaci%C3%B3n"><i data-lucide="message-circle"></i>Pide tu Cotización</a>
+    <a class="btn b-out" href="#casa"><i data-lucide="play"></i>Vive la demo como tu cliente</a>
+  </div>
+  <p class="text-sm text-slate-600 mt-5 max-w-xl mx-auto">Prueba el recorrido completo: elige 2 platos, completa el formulario con <b>tu celular</b> y recibe el pedido en tu WhatsApp. Así lo vivirán tus clientes.</p>
+</section>
+
+<p class="text-center ft text-xl md:text-2xl bg-white/90 rounded-full py-3 px-4">A continuación, un ejemplo de lo que podemos hacer por tu restaurante y tu marca</p>
+
+<!-- CASA BRAVA -->
+<section id="casa" class="relative rounded-3xl overflow-hidden min-h-[420px] flex items-end shadow-2xl">
+  <img src="imagen1.jpg" alt="Casa Brava" class="absolute inset-0 w-full h-full object-cover">
+  <div class="absolute inset-0 bg-gradient-to-t from-navy/95 via-navy/50 to-transparent"></div>
+  <div class="relative p-6 md:p-12 text-white max-w-3xl">
+    <p class="text-sm font-bold text-white/80">Restaurante demostrativo · Cocina colombiana contemporánea · Tradición que se disfruta</p>
+    <h2 class="ft !text-white text-5xl md:text-7xl my-2">Casa Brava</h2>
+    <p class="ft !text-white text-2xl">El sabor de nuestras raíces.</p>
+    <p class="mt-3 text-white/90">La tradición colombiana servida con carácter. Rescatamos recetas tradicionales, seleccionamos ingredientes de calidad y ponemos creatividad en cada preparación. Desde una entrada para compartir hasta un plato que merece convertirse en tu favorito.</p>
+    <p class="font-bold mt-3">Cocina con identidad. Sabores con historia. Momentos para recordar.</p>
+    <a href="#menu" class="btn b-red mt-5"><i data-lucide="utensils"></i>Ver el menú</a>
+  </div>
+</section>
+
+<section class="pn overflow-hidden grid md:grid-cols-2">
+  <img src="imagen2.jpg" alt="Nuestra historia" class="w-full h-64 md:h-full object-cover">
+  <div class="p-6 md:p-10">
+    <h2 class="ft text-3xl">Nuestra historia</h2><div class="rule my-3"></div>
+    <p class="ft !text-brava text-xl mb-3">Más que comida, una historia que se sirve en la mesa.</p>
+    <p class="mb-3">Casa Brava nació de una idea sencilla: Colombia tiene una riqueza gastronómica extraordinaria y merece ser celebrada en cada plato.</p>
+    <p class="mb-3">Nos inspiran las cocinas tradicionales, los mercados locales, las recetas familiares y esos sabores que nos recuerdan de dónde venimos. Hoy combinamos esa herencia con técnicas contemporáneas para ofrecer una experiencia auténtica, cercana y memorable.</p>
+    <p><b class="text-navy">Nuestra filosofía:</b> ingredientes honestos, preparaciones cuidadosas y platos que siempre invitan a volver.</p>
+  </div>
+</section>
+
+<section id="menu" class="pn overflow-hidden">
+  <div class="relative h-56 md:h-72"><img src="imagen3.jpg" alt="Explora nuestro menú" class="w-full h-full object-cover"><div class="absolute inset-0 bg-gradient-to-t from-white to-transparent"></div></div>
+  <div class="p-6 md:p-10 -mt-16 relative text-center">
+    <h2 class="ft text-3xl md:text-4xl">Explora nuestro menú</h2>
+    <p class="ft !text-brava text-xl my-2">Un mundo de sabores por descubrir.</p>
+    <p class="max-w-2xl mx-auto">Preparamos cada plato pensando en quienes disfrutan comer bien, compartir y descubrir nuevas experiencias. Toca cualquier plato para ver su ficha.</p>
+  </div>
+</section>
+
+<nav id="chips" class="sticky z-30 flex gap-2 overflow-x-auto py-2 px-1 bg-white/90 rounded-full shadow" style="top:calc(3.25rem + env(safe-area-inset-top))"></nav>
+<div id="cats" class="space-y-12"></div>
+
+<!-- RECOMENDACIONES -->
+<section class="pn overflow-hidden grid md:grid-cols-2">
+  <div class="p-6 md:p-10 order-2 md:order-1">
+    <h2 class="ft text-3xl">Recomendaciones de la casa</h2><div class="rule my-3"></div>
+    <p class="ft !text-brava text-xl mb-3">Si es tu primera visita, comienza por aquí.</p>
+    <p class="mb-1"><b class="text-navy">Nuestra recomendación: La Bandeja Brava.</b> El sabor colombiano que nos representa. Abundante, tradicional y preparado con el sello de nuestra cocina.</p>
+    <div id="rec" class="mt-4 space-y-2"></div>
+  </div>
+  <img src="recomendado.jpg" alt="Recomendado" class="w-full h-64 md:h-full object-cover order-1 md:order-2">
+</section>
+
+<!-- PEDIDO -->
+<section id="pedido" class="pn p-6 md:p-10">
+  <div class="text-center mb-6">
+    <h2 class="ft text-3xl md:text-4xl">Tu experiencia Casa Brava</h2>
+    <p class="ft !text-brava text-xl my-2">Tú eliges. Nosotros preparamos.</p>
+    <p class="max-w-2xl mx-auto">Selecciona tus platos, agrega las cantidades que deseas y construye tu pedido. Revisa el valor de tu compra y envíalo directamente por WhatsApp. <b>Cada elección cuenta. Tu próximo antojo comienza aquí.</b></p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <form id="f" class="space-y-3" novalidate>
+      <h3 class="ft text-2xl">Finaliza tu pedido</h3>
+      <p class="text-sm text-slate-600">¡Ya casi está lista tu experiencia! Completa tus datos para atenderte.</p>
+      <input class="in" id="nm" placeholder="Nombre completo" autocomplete="name">
+      <input class="in" id="ph" type="tel" inputmode="tel" placeholder="Celular con indicativo, ej. +573001234567" autocomplete="tel">
+      <p class="text-xs text-brava -mt-1">Obligatorio con + e indicativo de país. Usa tu número: ahí recibirás el pedido de prueba.</p>
+      <div class="grid grid-cols-2 gap-2">
+        <label class="in flex gap-2 items-center cursor-pointer"><input type="radio" name="md" value="d" checked> Domicilio</label>
+        <label class="in flex gap-2 items-center cursor-pointer"><input type="radio" name="md" value="r"> Recoger</label>
+      </div>
+      <input class="in" id="ad" placeholder="Dirección de entrega" autocomplete="street-address">
+      <textarea class="in" id="nt" rows="2" placeholder="Indicaciones adicionales"></textarea>
+      <p id="er" class="text-brava font-bold text-sm" role="alert"></p>
+      <button class="btn b-red w-full text-lg" type="submit"><i data-lucide="send"></i>ENVIAR PEDIDO POR WHATSAPP</button>
+      <p class="text-xs text-slate-500">Al continuar, enviaremos tu pedido a nuestro equipo para confirmar disponibilidad, modalidad de entrega y condiciones de pago (al número registrado en tus datos).</p>
+    </form>
+    <div class="bg-white rounded-2xl border-2 border-navy/15 p-5 h-fit">
+      <h3 class="ft text-2xl mb-3">Resumen de compra</h3>
+      <div id="sum"></div>
+    </div>
+  </div>
+</section>
+
+<!-- CIERRE -->
+<section class="pn p-8 text-center">
+  <h2 class="ft text-2xl md:text-4xl">Casa Brava, una experiencia que merece repetirse.</h2>
+  <p class="my-3">Gracias por elegirnos. Nos encanta ser parte de tus buenos momentos.</p>
+  <p class="ft !text-brava text-xl">El sabor de nuestras raíces. La pasión de nuestra cocina.</p>
+  <a href="#menu" class="btn b-navy mt-5"><i data-lucide="arrow-up"></i>VOLVER AL MENÚ</a>
+</section>
+
+<!-- ROI -->
+<section class="pn p-6 md:p-10">
+  <div class="text-center mb-6">
+    <p class="text-xs tracking-widest text-plata font-bold">AHORA IMAGINA ESTO CON TU MARCA</p>
+    <h2 class="ft text-3xl md:text-4xl mt-1">¿Cuánto podría crecer tu restaurante?</h2>
+    <p class="mt-2 max-w-2xl mx-auto">Mueve los controles con tus números reales y mira el escenario que podríamos construir juntos.</p>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6 items-center">
+    <div class="space-y-4">
+      <label class="block font-bold">Pedidos al mes: <span id="v1" class="text-brava"></span><input id="r1" type="range" min="50" max="2000" step="50" value="300" class="w-full accent-[#CA102E]"></label>
+      <label class="block font-bold">Valor promedio por pedido (COP)<input id="r2" type="number" inputmode="numeric" value="38000" class="in mt-1"></label>
+      <label class="block font-bold">Aumento estimado: <span id="v3" class="text-brava"></span>%<input id="r3" type="range" min="5" max="40" value="15" class="w-full accent-[#CA102E]"></label>
+      <p id="ro" class="ft text-xl"></p>
+      <a id="rw" target="_blank" rel="noopener" class="btn b-red w-full"><i data-lucide="message-circle"></i>Pide tu Cotización con estos números</a>
+      <p class="text-xs text-slate-500">Estimación ilustrativa y editable; no es una promesa de resultados.</p>
+    </div>
+    <div class="bg-white rounded-2xl p-4"><canvas id="cr" height="260"></canvas></div>
+  </div>
+</section>
+</main>
+
+<footer class="text-center text-sm bg-white/95 py-6 px-4">
+  <img src="monitora.png" alt="MONITORA" class="h-16 mx-auto mb-2 object-contain" onerror="this.style.display='none'">
+  <p class="font-bold text-navy">MONITORA · Soluciones Digitales</p>
+  <a class="btn b-red mt-3" target="_blank" rel="noopener" href="https://wa.me/573147911387?text=Pide%20tu%20Cotizaci%C3%B3n"><i data-lucide="message-circle"></i>Pide tu Cotización</a>
+</footer>
+
+<!-- Ficha de producto -->
+<div id="md" class="fixed inset-0 z-50 hidden items-end sm:items-center justify-center bg-navy/70 p-0 sm:p-4" onclick="if(event.target===this)cl('md')">
+  <div class="bg-white w-full max-w-3xl rounded-t-3xl sm:rounded-3xl overflow-hidden max-h-[92vh] overflow-y-auto grid md:grid-cols-2 relative" role="dialog" aria-modal="true">
+    <button onclick="cl('md')" class="absolute top-3 right-3 z-10 bg-white rounded-full p-2 shadow" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <img id="mi" class="w-full h-60 md:h-full object-cover" alt="">
+    <div class="p-6 flex flex-col gap-3">
+      <span id="mc" class="pill self-start !border-brava !text-brava"></span>
+      <h3 id="mn" class="ft text-3xl"></h3><div class="rule"></div>
+      <p id="md2" class="text-slate-700"></p>
+      <p id="mp" class="text-3xl font-bold text-navy"></p>
+      <div class="flex items-center gap-3"><button class="btn b-out !p-2" onclick="mq(-1)" aria-label="Menos"><i data-lucide="minus"></i></button><b id="mqv" class="text-xl w-8 text-center">1</b><button class="btn b-out !p-2" onclick="mq(1)" aria-label="Más"><i data-lucide="plus"></i></button></div>
+      <button id="ma" class="btn b-red"></button>
+      <div><p class="text-sm font-bold text-navy mb-1">Combínalo con</p><div id="mx" class="flex flex-wrap gap-2"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Banner post-pedido -->
+<div id="bn" class="fixed inset-0 z-[60] hidden items-center justify-center bg-navy/80 p-4">
+  <div class="bg-white rounded-3xl p-6 max-w-md w-full text-center relative">
+    <button onclick="cl('bn')" class="absolute top-3 right-3 p-2" aria-label="Cerrar"><i data-lucide="x"></i></button>
+    <i data-lucide="party-popper" class="w-10 h-10 text-brava mx-auto"></i>
+    <h3 class="ft text-3xl my-2">¿Te gustó la experiencia?</h3>
+    <p class="mb-3">Así vería tu restaurante cada pedido: ventas por categoría, al instante.</p>
+    <div class="max-w-[220px] mx-auto"><canvas id="cd"></canvas></div>
+    <p class="font-bold text-navy my-3">Solicita hoy mismo tu cotización</p>
+    <a class="btn b-red w-full" target="_blank" rel="noopener" href="https://wa.me/573147911387?text=Pide%20tu%20Cotizaci%C3%B3n"><i data-lucide="message-circle"></i>Pide tu Cotización</a>
+  </div>
+</div>
+
+<div id="ts" class="fixed left-1/2 -translate-x-1/2 bottom-6 z-[70] bg-navy text-white px-4 py-2 rounded-full shadow-lg text-sm hidden"></div>
+
+<script>
+const IMG='';           // Si las imágenes están en una subcarpeta, escribe: 'imagenes/'
+const $=i=>document.getElementById(i),F=n=>'$'+n.toLocaleString('es-CO'),DOM=5000;
+const FEAT=[['palette','Diseño personalizado con identidad corporativa'],['layout-grid','Catálogo visual de productos'],['mouse-pointer-click','Fichas interactivas'],['gift','Combos y recomendaciones'],['shopping-cart','Carrito de compras'],['clipboard-list','Formulario personalizado de pedidos'],['calculator','Cálculo automático del total'],['message-circle','Integración con WhatsApp']];
+$('feat').innerHTML=FEAT.map(([i,t])=>`<li class="flex gap-2 items-center bg-white rounded-xl p-3 border border-plata/40"><i data-lucide="${i}" class="w-5 h-5 text-brava shrink-0"></i>${t}</li>`).join('');
+const C=[
+{t:'Entradas para compartir',s:'Los mejores momentos comienzan con algo delicioso.',p:[['Patacones Casa Brava','Patacones crocantes acompañados de hogao artesanal, guacamole fresco y una suave salsa de la casa.',19900,'patacones.jpg'],['Empanaditas de la Abuela','Seis empanaditas de maíz rellenas de carne desmechada, acompañadas de ají casero y guacamole.',22900,'empanada.jpg'],['Chicharrón Bravío','Chicharrón crocante, servido con arepitas de maíz, limón y nuestra salsa criolla.',27900,'chicharron.jpg'],['Mazorca Dorada','Mazorca asada con mantequilla de hierbas, queso costeño rallado y un toque de especias.',18900,'mazorca.jpg']]},
+{t:'Especialidades de la casa',s:'Platos protagonistas. Sabores que cuentan historias.',p:[['La Bandeja Brava','Nuestra interpretación de un clásico colombiano: fríjoles caseros, arroz, carne molida, chicharrón, chorizo, huevo, aguacate y maduro.',38900,'bandejabrava.jpg'],['Sobrebarriga al Horno','Sobrebarriga cocinada lentamente, bañada en salsa criolla, con papa chorriada y arroz blanco.',39900,'sobrebarriga.jpg'],['Arroz del Pacífico','Arroz cremoso con camarones, calamares y pescado, con leche de coco y especias de inspiración pacífica.',42900,'arroz.jpg'],['Pollo Brasa de la Casa','Pechuga de pollo a la parrilla, marinada con hierbas, con papas rústicas y vegetales salteados.',32900,'pollo.jpg']]},
+{t:'Parrilla y cocina al fuego',s:'El fuego transforma los ingredientes en experiencias.',p:[['Punta de Anca','Corte de res a la parrilla, con papa criolla, ensalada fresca y chimichurri artesanal.',46900,'anca.jpg'],['Costillas BBQ','Costillas de cerdo bañadas en nuestra salsa BBQ artesanal, con papas en cascos y ensalada de la casa.',43900,'costilla.jpg'],['Lomo Bravío','Medallones de res a la parrilla con salsa de champiñones, puré de papa y vegetales salteados.',49900,'lomo.jpg']]},
+{t:'Hamburguesas artesanales',s:'Para quienes saben que una buena hamburguesa nunca decepciona.',im:'brava.jpg',p:[['La Brava','Carne artesanal de res, queso cheddar, tocineta crocante, cebolla caramelizada, lechuga y salsa especial Casa Brava.',32900],['La Criolla','Carne artesanal, queso mozzarella, hogao, aguacate, plátano maduro y mayonesa de cilantro.',34900],['La Doble Tentación','Doble carne artesanal, doble queso cheddar, tocineta, pepinillos y salsa de la casa.',39900]]},
+{t:'Bebidas y refrescos',s:'Refresca el momento.',im:'bebidas.jpg',p:[['Limonada Natural','Limón recién exprimido, agua y hielo.',9900],['Limonada de Coco','La combinación tropical de limón y coco, cremosa y refrescante.',13900],['Maracuyá Tropical','Jugo natural de maracuyá, preparado al momento.',10900],['Lulada Valluna','Lulo fresco, limón y hielo. Una bebida tradicional llena de personalidad.',12900]]},
+{t:'Postres irresistibles',s:'Porque siempre hay espacio para algo dulce.',im:'postre.jpg',p:[['Tres Leches de la Casa','Bizcocho esponjoso bañado en tres leches, cubierto con crema y un delicado toque de canela.',13900],['Brownie Bravío','Brownie de chocolate con helado de vainilla y salsa de chocolate.',15900],['Cheesecake de Frutos Rojos','Suave cheesecake con base crocante y cobertura de frutos rojos.',14900]]},
+{t:'Combos especiales',s:'Más sabor, más beneficios.',im:'combo.jpg',p:[['Combo Bravío','Una hamburguesa La Brava, papas en cascos y limonada natural. Una combinación perfecta para disfrutar de nuestro sabor insignia.',42900],['Combo Parrillero','Una punta de anca, papas criollas y bebida natural. Para quienes disfrutan los buenos cortes y el sabor de la parrilla.',53900],['Combo para Dos','Dos hamburguesas La Brava, una porción de patacones para compartir y dos limonadas naturales. El plan perfecto para compartir.',79900],['Combo Familiar','Una Bandeja Brava, una Sobrebarriga al Horno, dos porciones de empanaditas y cuatro limonadas naturales. Una mesa llena de sabor en familia.',109900]]}];
+let n=0;C.forEach(c=>c.p=c.p.map(([nm,d,pr,im])=>({id:++n,n:nm,d,pr,im:im||c.im,c:c.t})));
+const P=C.flatMap(c=>c.p),cart={};
+const card=p=>`<article class="pn overflow-hidden flex flex-col"><button onclick="op(${p.id})" class="aspect-[4/3] overflow-hidden block" aria-label="Ver ficha de ${p.n}"><img loading="lazy" src="${IMG+p.im}" alt="${p.n}" class="w-full h-full object-cover hover:scale-105 transition duration-500"></button><div class="p-4 flex-1 flex flex-col"><h4 class="ft text-xl">${p.n}</h4><p class="text-sm text-slate-600 line-clamp-2 mt-1">${p.d}</p><div class="mt-auto pt-3 flex items-center justify-between"><b class="text-lg text-navy">${F(p.pr)}</b><div class="flex gap-2"><button class="btn b-out !py-1.5 !px-3 text-sm" onclick="op(${p.id})">Ver ficha</button><button class="btn b-red !p-2" onclick="add(${p.id},1)" aria-label="Agregar ${p.n}"><i data-lucide="plus" class="w-5 h-5"></i></button></div></div></div></article>`;
+$('cats').innerHTML=C.map((c,i)=>`<section id="c${i}"><div class="pn p-5 text-center mb-5"><h3 class="ft text-3xl">${c.t}</h3><p class="ft !text-brava text-lg">${c.s}</p></div><div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">${c.p.map(card).join('')}</div></section>`).join('');
+$('chips').innerHTML=C.map((c,i)=>`<a href="#c${i}" class="pill !text-navy !border-navy">${c.t}</a>`).join('');
+$('rec').innerHTML=[['Para compartir',1],['Para una experiencia especial',11],['Para los amantes de las hamburguesas',13],['Para terminar',20]].map(([l,i])=>`<button onclick="op(${i})" class="w-full text-left bg-white border border-plata/50 rounded-xl p-3 flex justify-between items-center hover:border-brava"><span><b class="text-navy">${l}:</b> ${P[i-1].n}</span><i data-lucide="chevron-right" class="w-4 h-4 text-brava"></i></button>`).join('');
+
+function toast(m){const t=$('ts');t.textContent=m;t.classList.remove('hidden');clearTimeout(t.h);t.h=setTimeout(()=>t.classList.add('hidden'),1600)}
+function cl(i){$(i).classList.add('hidden');$(i).classList.remove('flex')}
+function sh(i){$(i).classList.remove('hidden');$(i).classList.add('flex')}
+const done={1:0,2:0,3:0};
+function step(k){done[k]=1;$('s'+k).classList.add('on')}
+let cur=null,q=1;
+function op(id){cur=P[id-1];q=1;step(1);$('mi').src=IMG+cur.im;$('mi').alt=cur.n;$('mc').textContent=cur.c;$('mn').textContent=cur.n;$('md2').textContent=cur.d;$('mp').textContent=F(cur.pr);
+const ex=P.filter(x=>/Bebidas|Postres/.test(x.c)&&x.id!==id).sort(()=>Math.random()-.5).slice(0,3);
+$('mx').innerHTML=ex.map(x=>`<button class="pill !text-navy !border-navy" onclick="op(${x.id})">${x.n} · ${F(x.pr)}</button>`).join('');mq(0);sh('md');$('md').firstElementChild.scrollTop=0;lucide.createIcons()}
+function mq(d){q=Math.max(1,q+d);$('mqv').textContent=q;$('ma').innerHTML=`<i data-lucide="plus" class="w-5 h-5"></i>Agregar al pedido · ${F(cur.pr*q)}`;$('ma').onclick=()=>{add(cur.id,q);cl('md')};lucide.createIcons()}
+function add(id,d){cart[id]=Math.max(0,(cart[id]||0)+d);if(!cart[id])delete cart[id];if(d>0)toast('Agregado: '+P[id-1].n);draw()}
+const sub=()=>Object.entries(cart).reduce((s,[i,k])=>s+P[i-1].pr*k,0),dom=()=>document.querySelector('[name=md]:checked').value==='d';
+function draw(){const e=Object.entries(cart),s=sub(),cnt=e.reduce((a,[,k])=>a+k,0);$('cn').textContent=cnt;$('ct').textContent=F(s);if(cnt)step(2);
+$('sum').innerHTML=e.length?`<ul class="divide-y">${e.map(([i,k])=>`<li class="py-2 flex items-center justify-between gap-2"><span class="text-sm flex-1">${P[i-1].n}</span><span class="flex items-center gap-1"><button class="pill" onclick="add(${i},-1)" aria-label="Quitar">−</button><b>${k}</b><button class="pill" onclick="add(${i},1)" aria-label="Sumar">+</button></span><b class="w-24 text-right text-sm">${F(P[i-1].pr*k)}</b></li>`).join('')}</ul><div class="mt-3 space-y-1 text-sm"><p class="flex justify-between">Subtotal <b>${F(s)}</b></p><p class="flex justify-between">Domicilio <b>${dom()?F(DOM):'No aplica'}</b></p><p class="flex justify-between text-xl text-navy font-bold pt-2 border-t">Total <span>${F(s+(dom()?DOM:0))}</span></p></div>`:`<p class="text-slate-600">Tu pedido está vacío. Agrega un plato para ver cómo se calcula el total al instante.</p><a href="#menu" class="btn b-navy mt-3">Explorar el menú</a>`;lucide.createIcons()}
+document.querySelectorAll('[name=md]').forEach(r=>r.onchange=()=>{$('ad').style.display=dom()?'':'none';draw()});
+
+let dch;
+function donut(){const m={};Object.entries(cart).forEach(([i,k])=>{const p=P[i-1];m[p.c]=(m[p.c]||0)+p.pr*k});if(dch)dch.destroy();
+dch=new Chart($('cd'),{type:'doughnut',data:{labels:Object.keys(m),datasets:[{data:Object.values(m),backgroundColor:['#012169','#CA102E','#A2A2A2','#3b5bb5','#e5586d','#6b7280','#0f3d9e']}]},options:{plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10}}}}}})}
+$('f').onsubmit=e=>{e.preventDefault();const er=$('er'),raw=$('ph').value.trim(),dg=raw.replace(/\D/g,'');er.textContent='';
+if(!Object.keys(cart).length){er.textContent='Agrega al menos un producto a tu pedido.';return}
+if($('nm').value.trim().length<3){er.textContent='Escribe tu nombre completo.';$('nm').focus();return}
+if(raw[0]!=='+'||dg.length<10||dg.length>15){er.textContent='Escribe tu celular con + e indicativo de país. Ej: +573001234567';$('ph').focus();return}
+if(dom()&&$('ad').value.trim().length<5){er.textContent='Escribe la dirección de entrega.';$('ad').focus();return}
+const s=sub(),t=s+(dom()?DOM:0);
+const m=`*Nuevo pedido · Casa Brava*\n\n*Cliente:* ${$('nm').value.trim()}\n*Celular:* +${dg}\n*Modalidad:* ${dom()?'Domicilio':'Recoger en restaurante'}\n${dom()?'*Dirección:* '+$('ad').value.trim()+'\n':''}${$('nt').value.trim()?'*Indicaciones:* '+$('nt').value.trim()+'\n':''}\n*Productos:*\n${Object.entries(cart).map(([i,k])=>`• ${k} x ${P[i-1].n} — ${F(P[i-1].pr*k)}`).join('\n')}\n\n*Subtotal:* ${F(s)}\n*Domicilio:* ${dom()?F(DOM):'No aplica'}\n*TOTAL:* ${F(t)}\n\n_Pedido de demostración generado con Menú Digital MONITORA_`;
+window.open(`https://wa.me/${dg}?text=${encodeURIComponent(m)}`,'_blank');step(3);
+setTimeout(()=>{sh('bn');donut()},1500)};
+
+let rc;
+function roi(){const a=+$('r1').value,t=+$('r2').value||0,u=+$('r3').value,x=a*t,y=Math.round(x*(1+u/100));$('v1').textContent=a;$('v3').textContent=u;
+$('ro').innerHTML=`+${F(y-x)} al mes · ${F((y-x)*12)} al año`;
+$('rw').href='https://wa.me/573147911387?text='+encodeURIComponent(`Pide tu Cotización. Mi restaurante: ${a} pedidos/mes, ${F(t)} por pedido, meta de crecimiento ${u}%.`);
+if(!rc)rc=new Chart($('cr'),{type:'bar',data:{labels:['Hoy','Con tu menú digital'],datasets:[{data:[x,y],backgroundColor:['#A2A2A2','#012169'],borderRadius:10}]},options:{plugins:{legend:{display:false},title:{display:true,text:'Ventas mensuales estimadas (COP)'}},scales:{y:{beginAtZero:true,ticks:{callback:v=>'$'+(v/1e6).toFixed(1)+'M'}}}}});
+else{rc.data.datasets[0].data=[x,y];rc.update()}}
+['r1','r2','r3'].forEach(i=>$(i).oninput=roi);
+Chart.defaults.font.family='Lato';roi();draw();lucide.createIcons();
+</script>
+</body>
+</html>
